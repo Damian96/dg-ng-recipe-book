@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from "./shared/models/recipe";
+import { Recipe } from "../shared/models/recipe";
 import * as store from 'store';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class RecipesService {
     this.loadRecipesFromLocalStorage();
   }
 
-  getAllRecipes(): Recipe[] {
+  getAllRecipes(): Array<Recipe> {
     return this.recipes.slice(); // Return a copy of the recipes array to prevent direct modification.
   }
 
@@ -23,7 +23,7 @@ export class RecipesService {
     const recipesData = store.get(this.#storageKey);
 
     if (recipesData) {
-      this.recipes = JSON.parse(recipesData);
+      this.recipes = JSON.parse(recipesData).map((data: { id: number, title: string, desc: string, timeToComplete: number }) => new Recipe(data.id, data.title, data.desc, data.timeToComplete));
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RecipesService } from "src/app/recipes.service";
+import { RecipesService } from "src/app/recipes/recipes.service";
 import { Recipe } from "src/app/shared/models/recipe";
 
 @Component({
@@ -12,6 +12,7 @@ export class RecipeListComponent {
   recipes: Array<Recipe>;
 
   constructor(public recipeService: RecipesService) {
-    this.recipes = recipeService.getAllRecipes();
+    this.recipes = this.recipeService.getAllRecipes();
   }
+
 }
