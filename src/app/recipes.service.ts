@@ -1,36 +1,67 @@
 import { Injectable } from '@angular/core';
-import { Recipe, recipe1, recipe2, recipe3 } from "./shared/models/recipe";
+import { Recipe } from "./shared/models/recipe";
+import * as store from 'store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesService {
 
-  recipes: Recipe[] = [];
+  recipes: Array<Recipe> = [];
+  #storageKey: string = 'recipeBook';
 
   constructor() {
-    this.recipes = [
-      recipe1,
-      recipe2,
-      recipe3
-    ];
+    this.loadRecipesFromLocalStorage();
   }
 
-  saveRecipe(data: Recipe) {
-    this.saveToLocalStorage(data.id.toString(), data);
+  getAllRecipes(): Recipe[] {
+    return this.recipes.slice(); // Return a copy of the recipes array to prevent direct modification.
   }
 
-  getRecipe(id: number) {
-    let json = window.localStorage.getItem(id.toString());
+  /* Read & Write to LocalStorage */
+  private loadRecipesFromLocalStorage(): void {
+    const recipesData = store.get(this.#storageKey);
 
-    try {
-      return JSON.parse(json!);
-    } catch (error) {
-      console.error('Could not find recipe with id ' + id + '.');
+    if (recipesData) {
+      this.recipes = JSON.parse(recipesData);
     }
   }
 
-  private saveToLocalStorage(key: string, value: any) {
-    window.localStorage.setItem(key, JSON.stringify(value));
+  private saveRecipesToLocalStorage(): void {
+    store.set(this.#storageKey, JSON.stringify(this.recipes));
+  }
+
+  getRecipeById(id: number): Recipe | undefined {
+    return this.recipes.find(recipe => recipe.id === id);
+  }
+
+  /* CRUD */
+  addRecipe(recipe: Recipe): void {
+    recipe.id = this.generateUniqueId();
+
+    this.recipes.push(recipe);
+    this.saveRecipesToLocalStorage();
+  }
+
+  updateRecipe(updatedRecipe: Recipe): void {
+    const index = this.recipes.findIndex(recipe => recipe.id === updatedRecipe.id);
+
+    if (index !== -1) {
+      this.recipes[index] = { ...updatedRecipe };
+    }
+  }
+
+  deleteRecipe(id: number): void {
+    const index = this.recipes.findIndex(recipe => recipe.id === id);
+
+    if (index !== -1) {
+      this.recipes.splice(index, 1);
+    }
+  }
+
+  private generateUniqueId(): number {
+    const existingIds = this.recipes.map(recipe => recipe.id);
+    const newId = Math.max(...existingIds, 0) + 1;
+    return newId;
   }
 }

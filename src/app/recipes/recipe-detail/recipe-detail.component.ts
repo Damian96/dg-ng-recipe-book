@@ -6,7 +6,7 @@ import { Recipe } from "src/app/shared/models/recipe";
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
-  styleUrls: ['./recipe-detail.component.css']
+  styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent {
 
@@ -19,7 +19,10 @@ export class RecipeDetailComponent {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.selectedId = Number(params.get('id'));
-      this.recipe = this.recipeService.getRecipe(this.selectedId);
+      let result = this.recipeService.getRecipeById(this.selectedId);
+      if (result != undefined) {
+        this.recipe = result;
+      }
     });
   }
 }

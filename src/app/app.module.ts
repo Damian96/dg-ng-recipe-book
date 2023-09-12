@@ -7,15 +7,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
+import { RecipeAddComponent } from './recipes/recipe-add/recipe-add.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipeDetailComponent,
-    RecipeListComponent
+    RecipeListComponent,
+    RecipeAddComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     NgbModule,
   ],

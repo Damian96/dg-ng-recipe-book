@@ -1,0 +1,38 @@
+<div class="container-fluid mt-5">
+  <h2>Add a New Recipe</h2>
+  <form (ngSubmit)="onSubmit()" #recipeForm="ngForm" [class.was-validated]="isFormSubmitted">
+    <div class="form-group mb-4">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" name="title"
+        [(ngModel)]="newRecipe.title" required minlength="3" #title="ngModel"
+        [class.is-invalid]="recipeForm.getControl(title)?.invalid && recipeForm.getControl(title)?.touched"
+        [class.is-valid]="recipeForm.getControl(title)?.valid && recipeForm.getControl(title)?.touched">
+        <div *ngIf="recipeForm.getControl(title)?.invalid && (recipeForm.getControl(title)?.dirty || recipeForm.getControl(title)?.touched)">
+          <div *ngIf="recipeForm.controls['title'].errors??['required']">Title is required.</div>
+          <div *ngIf="recipeForm.controls['title'].errors??['minlength']">Title must be at least 3 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group mb-4">
+      <label for="desc">Description</label>
+      <textarea class="form-control" id="desc" name="desc" [(ngModel)]="newRecipe.desc" required minlength="10" #desc="ngModel"
+      [class.is-invalid]="recipeForm.getControl(desc)?.invalid && recipeForm.getControl(desc)?.touched"
+      [class.is-valid]="recipeForm.getControl(desc)?.valid && recipeForm.getControl(desc)?.touched">
+        </textarea>
+        <div *ngIf="recipeForm.getControl(desc)?.invalid && (recipeForm.getControl(desc)?.dirty || recipeForm.getControl(desc)?.touched)">
+          <div *ngIf="recipeForm.controls['desc'].errors??['required']">The Description is required.</div>
+          <div *ngIf="recipeForm.controls['desc'].errors??['minlength']">The Description must be at least 10 characters long.</div>
+        </div>
+    </div>
+    <div class="form-group mb-4">
+      <label for="timeToComplete">Time to Complete (minutes)</label>
+      <input type="number" class="form-control" id="timeToComplete" name="timeToComplete" [(ngModel)]="newRecipe.timeToComplete" required step="1" min="5" max="100" #timeToComplete="ngModel"
+      [class.is-invalid]="recipeForm.getControl(timeToComplete)?.invalid && recipeForm.getControl(timeToComplete)?.touched"
+      [class.is-valid]="recipeForm.getControl(timeToComplete)?.valid && recipeForm.getControl(timeToComplete)?.touched">
+      <div *ngIf="recipeForm.getControl(timeToComplete)?.invalid && (recipeForm.getControl(timeToComplete)?.dirty || recipeForm.getControl(timeToComplete)?.touched)">
+        <div *ngIf="recipeForm.controls['timeToComplete'].errors??['required']">The Time to Complete is required.</div>
+        <div *ngIf="recipeForm.controls['timeToComplete'].errors??['minlength']">The Time to Complete must be at least 5 and at max 100.</div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Recipe</button>
+  </form>
+</div>

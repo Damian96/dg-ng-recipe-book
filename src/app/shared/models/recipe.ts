@@ -1,15 +1,34 @@
-export class Recipe {
+export class Recipe implements RecipeInterface {
   id: number;
   title: string;
   desc: string;
   timeToComplete: number;
 
-  constructor(title: string, desc: string, timeToComplete: number) {
+  constructor(title?: string, desc?: string, timeToComplete?: number) {
     this.id = Math.floor(Math.random() * 100);
-    this.title = title;
-    this.desc = desc;
-    this.timeToComplete = timeToComplete;
+
+    if (title)
+      this.title = title;
+    else
+      this.title = '';
+
+    if (desc)
+      this.desc = desc;
+    else
+      this.desc = '';
+
+    if (timeToComplete)
+      this.timeToComplete = timeToComplete;
+    else
+      this.timeToComplete = 0;
   }
+}
+
+export interface RecipeInterface {
+  id: number;
+  title: string;
+  desc: string;
+  timeToComplete: number;
 }
 
 export const recipe1 = new Recipe("Spaghetti Carbonara", "A classic Italian pasta dish with eggs, cheese, and pancetta.", 30);
