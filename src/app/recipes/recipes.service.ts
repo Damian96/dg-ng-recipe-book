@@ -49,6 +49,7 @@ export class RecipesService {
     if (index !== -1) {
       this.recipes[index] = { ...updatedRecipe };
     }
+    this.saveRecipesToLocalStorage();
   }
 
   deleteRecipe(id: number): void {
@@ -57,6 +58,7 @@ export class RecipesService {
     if (index !== -1) {
       this.recipes.splice(index, 1);
     }
+    this.saveRecipesToLocalStorage();
   }
 
   private generateUniqueId(): number {

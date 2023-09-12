@@ -22,8 +22,6 @@ export class Recipe implements RecipeInterface {
 
     if (timeToComplete)
       this.timeToComplete = timeToComplete;
-    else
-      this.timeToComplete = 0;
   }
 }
 

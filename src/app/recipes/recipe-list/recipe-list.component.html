@@ -7,6 +7,7 @@
         <div class="card-body">
           <h5 class="card-title">
             <a href="/recipe/{{ item.id }}">{{ item.title }}</a>
+            <span class="cursor-pointer float-end" (click)="deleteRecipe(item.id)">❌</span>
           </h5>
           <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
           <p class="card-text">{{ item.desc.substr(0, 50) }}...</p>

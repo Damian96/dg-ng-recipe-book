@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { RecipesService } from "src/app/recipes/recipes.service";
 import { Recipe } from "src/app/shared/models/recipe";
 
@@ -11,20 +10,36 @@ import { Recipe } from "src/app/shared/models/recipe";
 export class RecipeAddComponent {
 
   newRecipe: Recipe = new Recipe();
-  isFormSubmitted = false;
+  isFormSubmitted: boolean = false;
+  formValidity: boolean | null = null;
 
   constructor(private recipeService: RecipesService) { }
 
   onSubmit(): void {
     this.isFormSubmitted = true;
 
-    alert('Your recipe has been saved!');
+    if (!this.validateForm()) {
+      this.formValidity = false;
+      return;
+    }
 
     this.recipeService.addRecipe(this.newRecipe);
   }
 
-  resetForm() {
-    // Reset the form after successful submission
+  validateForm(): boolean {
+    if (this.newRecipe.title.length <= 3) return false;
+
+    if (this.newRecipe.desc.length <= 10) return false;
+
+    if (this.newRecipe.timeToComplete <= 5) return false;
+
+    this.formValidity = true;
+    return true;
+  }
+
+  resetForm() : void {
     this.newRecipe = new Recipe();
+    this.formValidity = null;
+    this.isFormSubmitted = false;
   }
 }
