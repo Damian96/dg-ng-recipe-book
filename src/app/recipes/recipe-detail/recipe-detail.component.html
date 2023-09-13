@@ -1,1 +1,18 @@
-<p>recipe-detail works!</p>
+<div class="container-fluid">
+  <div class="row d-flex justify-content-center align-items-center mt-5">
+    <div class="card recipe" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ recipe.title }}
+          <!-- <span class="cursor-pointer float-end" (click)="deleteRecipe(recipe.id)">❌</span> -->
+        </h5>
+        <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+        <p class="card-text">
+          <u>Description:</u><br/> {{ recipe.desc }}
+        </p>
+        <p class="card-text">
+          <u>Time to Complete:</u> {{ recipe.timeToComplete }} mins
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
