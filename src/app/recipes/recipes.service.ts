@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from "../shared/models/recipe";
+import { Recipe, mockRecipes } from "../shared/models/recipe";
 import * as store from 'store';
 
 @Injectable({
@@ -65,5 +65,9 @@ export class RecipesService {
     const existingIds = this.recipes.map(recipe => recipe.id);
     const newId = Math.max(...existingIds, 0) + 1;
     return newId;
+  }
+
+  generateDummyRecipes(): void {
+    store.set('recipeBook', JSON.stringify(mockRecipes));
   }
 }

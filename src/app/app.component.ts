@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RecipesService } from "./recipes/recipes.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'recipe-book';
+
+  constructor(private recipeService: RecipesService) { }
+
+  generateDummyRecipes() {
+    this.recipeService.generateDummyRecipes();
+    window.location.reload();
+  }
 }
