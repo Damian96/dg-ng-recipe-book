@@ -6,7 +6,7 @@
       <div class="card recipe" style="width: 18rem;" *ngFor="let item of recipes">
         <div class="card-body">
           <h5 class="card-title">
-            <a href="/recipe/{{ item.id }}">{{ item.title }}</a>
+            <a href="recipe/{{ item.id }}">{{ item.title }}</a>
             <span class="cursor-pointer float-end" (click)="deleteRecipe(item.id)">❌</span>
           </h5>
           <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
